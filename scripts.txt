@@ -1,0 +1,63 @@
+git clone https://github.com/googlecodelabs/tensorflow-for-poets-2 tensorflow
+
+mv tensorflow/scripts/ .
+
+docker run -it \
+  --publish 6006:6006 \
+  --volume ${HOME}/Documents/gucode:/gucode \
+  --workdir /gucode \
+  tensorflow/tensorflow:1.1.0 bash
+
+python scripts/retrain.py \
+  --bottleneck_dir=bottlenecks \
+  --how_many_training_steps=4000 \
+  --model_dir=inception \
+  --output_graph=gucode_graph.pb \
+  --output_labels=gucode_mapping.txt \
+  --image_dir=datasets
+
+python -m scripts.label_image \
+  datasets/mouse/a1.jpg \
+  gucode_graph.pb
+
+python -m tensorflow.python.tools.optimize_for_inference \
+  --input=gucode_graph.pb \
+  --output=gucode_optimized_graph.pb \
+  --input_names="Cast" \
+  --output_names="final_result"
+
+python -m scripts.quantize_graph \
+  --input=gucode_optimized_graph.pb \
+  --output=gucode_rounded_graph.pb \
+  --output_node_names=final_result \
+  --mode=weights_rounded
+
+python -m tensorflow.scripts.label_image \
+  datasets/mouse/a1.jpg \
+  gucode_rounded_graph.pb
+
+
+
+
+
+
+
+
+
+
+
+
+
+python -m scripts.graph_pb2tb training_summaries/retrained retrained_graph.pb
+
+python -m scripts.graph_pb2tb training_summaries/retrained optimized_graph.pb
+
+python -m scripts.count_ops retrained_graph.pb DecodeJpeg
+python -m scripts.count_ops optimized_graph.pb DecodeJpeg
+
+python -m scripts.label_image \
+  flower_photos/daisy/21652746_cc379e0eea_m.jpg \
+  kaidee_graph.pb
+
+https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2/
+

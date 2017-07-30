@@ -40,3 +40,12 @@ python -m scripts.quantize_graph \
 python -m tensorflow.scripts.label_image \
   datasets/mouse/a1.jpg \
   rounded_graph.pb
+  
+# References
+- https://www.tensorflow.org/mobile/
+- https://www.tensorflow.org/tutorials/image_retraining#bottlenecks
+- https://www.youtube.com/watch?v=EnFyneRScQ8
+- https://www.tensorflow.org/get_started/get_started
+- https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/
+- https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2/
+- https://stackoverflow.com/questions/40088222/ffmpeg-convert-video-to-images

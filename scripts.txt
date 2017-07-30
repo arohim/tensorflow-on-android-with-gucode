@@ -1,10 +1,14 @@
+mkdir tf_files
+
+cd tf_files
+
 git clone https://github.com/googlecodelabs/tensorflow-for-poets-2 tensorflow
 
 mv tensorflow/scripts/ .
 
 docker run -it \
   --publish 6006:6006 \
-  --volume ${HOME}/Documents/gucode:/gucode \
+  --volume ${HOME}/Documents/gucode/tf_files:/tf_files \
   --workdir /gucode \
   tensorflow/tensorflow:1.1.0 bash
 
@@ -12,8 +16,8 @@ python scripts/retrain.py \
   --bottleneck_dir=bottlenecks \
   --how_many_training_steps=4000 \
   --model_dir=inception \
-  --output_graph=gucode_graph.pb \
-  --output_labels=gucode_mapping.txt \
+  --output_graph=retrained_graph.pb \
+  --output_labels=retrained_labels.txt \
   --image_dir=datasets
 
 python -m scripts.label_image \
@@ -21,20 +25,20 @@ python -m scripts.label_image \
   gucode_graph.pb
 
 python -m tensorflow.python.tools.optimize_for_inference \
-  --input=gucode_graph.pb \
-  --output=gucode_optimized_graph.pb \
+  --input=retrained_graph.pb \
+  --output=optimized_graph.pb \
   --input_names="Cast" \
   --output_names="final_result"
 
 python -m scripts.quantize_graph \
-  --input=gucode_optimized_graph.pb \
-  --output=gucode_rounded_graph.pb \
+  --input=optimized_graph.pb \
+  --output=rounded_graph.pb \
   --output_node_names=final_result \
   --mode=weights_rounded
 
 python -m tensorflow.scripts.label_image \
   datasets/mouse/a1.jpg \
-  gucode_rounded_graph.pb
+  rounded_graph.pb
 
 
 

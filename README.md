@@ -41,7 +41,7 @@ python -m tensorflow.scripts.label_image \
   datasets/mouse/a1.jpg \
   rounded_graph.pb
   
-  #References
+# References
 - https://www.tensorflow.org/mobile/
 - https://www.tensorflow.org/tutorials/image_retraining#bottlenecks
 - https://www.youtube.com/watch?v=EnFyneRScQ8

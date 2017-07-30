@@ -41,9 +41,7 @@ python -m tensorflow.scripts.label_image \
   rounded_graph.pb
 
 
-
-
-
+Download model over the network.
 
 
 

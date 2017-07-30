@@ -43,7 +43,7 @@ def evaluate_graph(graph_file_name):
             labels = ground_truth_input,
             logits = logits))
         
-    image_dir = 'tf_files/flower_photos'
+    image_dir = 'datasets'
     testing_percentage = 10
     validation_percentage = 10
     validation_batch_size = 100
@@ -75,14 +75,15 @@ def evaluate_graph(graph_file_name):
     
             feed_dict={
                 image_buffer_input: image,
-                ground_truth_input: ground_truth}
+                ground_truth_input: ground_truth
+            }
 
             eval_accuracy, eval_xent = sess.run([accuracy, xent], feed_dict)
-            
+
             accuracies.append(eval_accuracy)
             xents.append(eval_xent)
         
-        
+    
     return np.mean(accuracies), np.mean(xents)
 
 if __name__ == "__main__":

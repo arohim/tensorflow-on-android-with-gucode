@@ -36,7 +36,7 @@ def main(image_path, graph_file="tf_files/retrained_graph.pb"):
 
     # Loads label file, strips off carriage return
     label_lines = [line.rstrip() for line 
-                       in tf.gfile.GFile("tf_files/retrained_labels.txt")]
+                       in tf.gfile.GFile("retrained_labels.txt")]
     
     # Unpersists graph from file
     graph = tf.Graph()

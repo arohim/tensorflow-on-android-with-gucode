@@ -49,3 +49,4 @@ python -m tensorflow.scripts.label_image \
 - https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/
 - https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2/
 - https://stackoverflow.com/questions/40088222/ffmpeg-convert-video-to-images
+- https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/index.html?index=..%2F..%2Findex#4

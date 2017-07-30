@@ -27,7 +27,7 @@ import PIL.Image as Image
 import tensorflow as tf
 
             
-def main(image_path, graph_file="gucode_graph.pb"):
+def main(image_path, graph_file="tf_files/retrained_graph.pb"):
     # Read in the image_data
     
     image = Image.open(image_path)
@@ -36,7 +36,7 @@ def main(image_path, graph_file="gucode_graph.pb"):
 
     # Loads label file, strips off carriage return
     label_lines = [line.rstrip() for line 
-                       in tf.gfile.GFile("gucode_mapping.txt")]
+                       in tf.gfile.GFile("tf_files/retrained_labels.txt")]
     
     # Unpersists graph from file
     graph = tf.Graph()
